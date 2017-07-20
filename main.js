@@ -6,6 +6,7 @@ let button = document.querySelector('button')
 let resultList = document.querySelector('.result-list')
 let nowPlaying = document.querySelector('.now')
 let audio = document.querySelector('audio')
+let searchBox = document.querySelector('#search')
 
 // 2. Create your `submit` event for getting the user's search term
 
@@ -18,6 +19,12 @@ const promise = fetch(
 )
   .then(response => response.json())
   .then(musicResults => {
+    searchBox.addEventListener("keyup", function(event) {
+      event.preventDefault()
+      if (event.keyCode == 13) {
+        button.click()
+      }
+    })
     resultList.innerHTML=""
     musicResults.results.forEach(function (musicData, index) {
       let musicBox = document.createElement('li')
@@ -41,5 +48,10 @@ const promise = fetch(
     })
   })
 })
-// 4. Create a way to append the fetch results to your page
-// 5. Create a way to listen for a click that will play the song in the audio play
+
+searchBox.addEventListener("keyup", function(event) {
+  event.preventDefault()
+  if (event.keyCode == 13) {
+    button.click()
+  }
+})
